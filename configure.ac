@@ -1,5 +1,5 @@
 dnl 
-dnl  $Id: configure.ac,v 1.2 2003-11-26 03:47:58 clee Exp $
+dnl  $Id: configure.ac,v 1.3 2005-01-16 17:30:53 pb Exp $
 dnl 
 dnl  Copyright © 2003 Keith Packard, Noah Levitt
 dnl 
@@ -25,9 +25,9 @@ dnl Process this file with autoconf to create configure.
 
 AC_PREREQ([2.57])
 AC_INIT([damageext], [1.0], [keithp@keithp.com], damageext)
+AC_CONFIG_AUX_DIR(.)
 AM_INIT_AUTOMAKE([dist-bzip2])
 AM_MAINTAINER_MODE
-AC_CONFIG_AUX_DIR(.)
 
 PKG_CHECK_MODULES(FIXESEXT, fixesext)
 
