@@ -1,4 +1,4 @@
-			The XDAMAGE Extension
+			The DAMAGE Extension
 			    Version 0.0
 			     2003-10-18
 			    Keith Packard
@@ -8,7 +8,7 @@
 
 Monitoring the regions affected by rendering has wide-spread use, from
 VNC-like systems scraping the screen to screen magnifying applications
-designed to aid users with limited visual acuity.  The XDAMAGE extension is
+designed to aid users with limited visual acuity.  The DAMAGE extension is
 designed to make such applications reasonably efficient in the face of
 server-client latency.
 
@@ -44,7 +44,7 @@ object drawn (line, string, rectangle) to be represented as a single
 rectangle and for the damage area of the operation to be the union of these
 rectangles.
 
-The XDAMAGE extension allows applications to either receive the raw
+The DAMAGE extension allows applications to either receive the raw
 rectangles as a stream of events, or to have them partially processed within
 the X server to reduce the amount of data transmitted as well as reduce the
 processing latency once the repaint operation has started.
@@ -52,7 +52,7 @@ processing latency once the repaint operation has started.
 Damage to a window reflects both drawing within the window itself as well as
 drawing within any inferior window that affects pixels seen by
 IncludeInferiors rendering operations.  To reduce the computational
-complexity of this, the XDAMAGE extension allows the server to monitor all
+complexity of this, the DAMAGE extension allows the server to monitor all
 rendering operations within the physical target pixel storage that fall
 within the bounds of the window.  In a system with a single frame buffer
 holding all windows, this means that damage will accumulate for all
@@ -64,42 +64,46 @@ contents.
 
 4. Data types
 
-The XDAMAGE extension creates no new datatypes itself, but does lean heavily
-on the XFIXES extension region datatypes.
+The "Damage" object holds any accumulated damage region and reflects the
+relationship between the drawable selected for damage notification and the
+drawable for which damage is tracked.
 
 5. Errors
 
-No new errors are included in the XDAMAGE extension.
+Damage
+	A value for a DAMAGE argument does not name a defined DAMAGE.
 
 6. Types
 
+	DAMAGE		32-bit value (top three bits guaranteed to be zero)
+	
 	DamageReportLevel		{ DamageReportRawRectangles,
 					  DamageReportDeltaRectangles,
 					  DamageReportBoundingBox,
 					  DamageReportNonEmpty }
 
-	DamageReportRawRectangles
+	    DamageReportRawRectangles
 
 		Delivers DamageNotify events each time the screen
 		is modified with rectangular bounds that circumscribe
 		the damaged area.  No attempt to compress out overlapping
 		rectangles is made.
 
-	DamageReportDeltaRectangles
+	    DamageReportDeltaRectangles
 
 		Delivers DamageNotify events each time damage occurs
 		which is not included in the damage region.  The
 		reported rectangles include only the changes to that
 		area, not the raw damage data.
 
-	DamageReportBoundingBox
+	    DamageReportBoundingBox
 
 		Delivers DamageNotify events each time the bounding
 		box enclosing the damage region increases in size.
 		The reported rectangle encloses the entire damage region,
 		not just the changes to that size.
 
-	DamageReportNonEmpty
+	    DamageReportNonEmpty
 
 		Delivers a single DamageNotify event each time the
 		damage rectangle changes from empty to non-empty, and
@@ -111,9 +115,15 @@ No new errors are included in the XDAMAGE extension.
 DamageNotify
 
 	level:				DamageReportLevel
-	window:				Window
+	drawable:			Drawable
+	damage:				DAMAGE
+	more:				Bool
 	timestamp:			Timestamp
-	damage:				Rectangle
+	area:				Rectangle
+	drawable-geometry:		Rectangle
+
+	'more' indicates whether there are subsequent damage events
+	being delivered immediately as part of a larger damage region
 
 8. Extension Initialization
 
@@ -142,34 +152,34 @@ QueryVersion
 
 9. Enable Monitoring
 
-DamageMonitor
+DamageCreate
 
-		window:				Window
+		damage:				DAMAGE
+		drawable:			Drawable
 		level:				DamageReportLevel
-		damage_region:			Region
+		
+	Creates a damage object to monitor changes to Drawable
 
-	The server establishes a damage monitor for window.  'region'
-	is used to hold the damage region when level is not
-	DamageReportRawRectangles, in which case it is ignored
-	and may be None.
+DamageDestroy
+		damage:				DAMAGE
+
+	Destroys damage.
 
 DamageSubtract
 
-		window:				window
-		damage_region:			Region
-		repair_region:			Region or None
-		parts_region:			Region
+		damage:				DAMAGE
+		repair:				Region or None
+		parts:				Region
 
 	Synchronously modifies the regions in the following manner:
 
-	    If repair_region is None:
+	    If repair is None:
 
-		1)	parts_region = damage_region
-		2)	damage_region = <empty>
+		1)	parts = damage
+		2)	damage = <empty>
 		
 	    Otherwise:
 	
-		1)	parts_region = damage_region INTERSECT repair_region
-		2)	damage_region = damage_region - parts_region
-
-	
+		1)	parts = damage INTERSECT repair
+		2)	damage = damage - parts
+		3)	Generate DamageNotify for remaining damage areas

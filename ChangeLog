@@ -1,3 +1,17 @@
+2003-10-23  Keith Packard  <keithp@keithp.com>
+
+	* COPYING:
+	* INSTALL:
+	* Makefile.am:
+	* README:
+	* autogen.sh:
+	* configure.ac:
+	* damageext.pc.in:
+	* damageproto.h:
+	* damagewire.h:
+	* protocol:
+	Initial working version -- added DamageDestroy and damage objects
+
 2003-10-18	Keith Packard	<keithp@keithp.com
 
 	Initial protocol description added

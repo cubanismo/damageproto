@@ -1,0 +1,9 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: DamageExt
+Description: X Damage extension headers
+Version: @PACKAGE_VERSION@
+Cflags: -I${includedir} @FIXESEXT_CFLAGS@
