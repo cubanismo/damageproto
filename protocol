@@ -1,6 +1,8 @@
 			The DAMAGE Extension
-			    Version 0.0
-			     2003-10-18
+			Protocol Version 0.0
+			 Document Revision 1
+			     2003-11-03
+			     
 			    Keith Packard
 			  keithp@keithp.com
 
@@ -16,6 +18,9 @@ server-client latency.
 
 As usual, the author had significant input from many people, in particular:
 
+ +	Havoc Pennington who designed and implemented a Damage extension
+ 	last year which was then lost to the mists of time.
+			    
  +	Bill Haneman whose work on accessibility in the Gnome environment
  	is legendary.
 

@@ -1,3 +1,9 @@
+2003-11-03  Keith Packard  <keithp@keithp.com>
+
+	* protocol:
+	Mark document revision
+	Credit Havoc the Tolerant for his earlier design and implementation
+
 2003-10-23  Keith Packard  <keithp@keithp.com>
 
 	* COPYING:
