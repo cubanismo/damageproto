@@ -1,5 +1,5 @@
 dnl 
-dnl  $Id: configure.ac,v 1.1 2003-10-24 06:16:46 keithp Exp $
+dnl  $Id: configure.ac,v 1.2 2003-11-26 03:47:58 clee Exp $
 dnl 
 dnl  Copyright © 2003 Keith Packard, Noah Levitt
 dnl 
@@ -27,6 +27,7 @@ AC_PREREQ([2.57])
 AC_INIT([damageext], [1.0], [keithp@keithp.com], damageext)
 AM_INIT_AUTOMAKE([dist-bzip2])
 AM_MAINTAINER_MODE
+AC_CONFIG_AUX_DIR(.)
 
 PKG_CHECK_MODULES(FIXESEXT, fixesext)
 
