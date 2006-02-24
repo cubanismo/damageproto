@@ -21,17 +21,16 @@
 #  TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 #  PERFORMANCE OF THIS SOFTWARE.
 
-damageextincludedir = $(includedir)/X11/extensions
-damageextinclude_HEADERS = 	\
-	damageproto.h		\
+damagedir = $(includedir)/X11/extensions
+damage_HEADERS = \
+	damageproto.h \
 	damagewire.h
 
-
-damageextdocdir = $(datadir)/doc/damageext
-damageextdoc_DATA = protocol
-
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = damageext.pc
+pkgconfig_DATA = damageproto.pc
 
-EXTRA_DIST = autogen.sh damageext.pc.in $(damageextdoc_DATA)
+damagedocdir = $(datadir)/doc/Damage
+damagedoc_DATA = protocol
+
+EXTRA_DIST = autogen.sh damageproto.pc.in $(damagedoc_DATA)
 
