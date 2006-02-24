@@ -5,7 +5,7 @@ autom4te.cache
 config.log
 config.status
 configure
-damageext.pc
+damageproto.pc
 install-sh
 missing
 mkinstalldirs
