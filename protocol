@@ -188,3 +188,12 @@ DamageSubtract
 		1)	parts = damage INTERSECT repair
 		2)	damage = damage - parts
 		3)	Generate DamageNotify for remaining damage areas
+
+DamagePost
+
+		drawable:			Drawable
+		region:				Region
+
+	Reports damage of the region within the given drawable.  This may be
+	used by direct rendering clients to report damage that the server would
+	otherwise be unaware of.

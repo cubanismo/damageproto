@@ -115,6 +115,16 @@ typedef struct {
 
 #define sz_xDamageSubtractReq		16
 
+typedef struct {
+    CARD8	reqType;
+    CARD8	damageReqType;
+    CARD16	length B16;
+    Drawable	drawable B32;
+    Region	region B32;
+} xDamagePostReq;
+
+#define sz_xDamagePostReq		12
+
 /* Events */
 
 #define DamageNotifyMore    0x80
