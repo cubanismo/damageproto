@@ -1,9 +1,9 @@
-		RandR
-	  X RandR Extension
-	    Version 1.0
-	      2002-10-4
+		Damage
+	  X Damage Extension
+	    Version 1.1
+	      2007-01-08
 
-This package contains header files and documentation for the X RandR
+This package contains header files and documentation for the X Damage
 extension.  Library and server implementations are separate.
 
 Keith Packard
