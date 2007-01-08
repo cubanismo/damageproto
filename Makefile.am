@@ -29,8 +29,8 @@ damage_HEADERS = \
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = damageproto.pc
 
-damagedocdir = $(datadir)/doc/Damage
-damagedoc_DATA = protocol
+damagedocdir = $(datadir)/doc/$(PACKAGE)
+damagedoc_DATA = damageproto.txt
 
 EXTRA_DIST = autogen.sh damageproto.pc.in $(damagedoc_DATA)
 
