@@ -206,7 +206,7 @@ DamageSubtract
 		2)	damage = damage - parts
 		3)	Generate DamageNotify for remaining damage areas
 
-DamagePost
+DamageAdd
 
 		drawable:			Drawable
 		region:				Region

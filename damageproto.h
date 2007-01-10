@@ -122,9 +122,9 @@ typedef struct {
     CARD16	length B16;
     Drawable	drawable B32;
     Region	region B32;
-} xDamagePostReq;
+} xDamageAddReq;
 
-#define sz_xDamagePostReq		12
+#define sz_xDamageAddReq		12
 
 /* Events */
 

@@ -42,9 +42,9 @@
 #define X_DamageCreate			1
 #define X_DamageDestroy			2
 #define X_DamageSubtract		3
-#define X_DamagePost			4
+#define X_DamageAdd			4
 
-#define XDamageNumberRequests		(X_DamagePost + 1)
+#define XDamageNumberRequests		(X_DamageAdd + 1)
 
 /* Events */
 #define XDamageNotify			0
