@@ -1,6 +1,4 @@
 dnl 
-dnl  $Id: configure.ac,v 1.3 2005-01-16 17:30:53 pb Exp $
-dnl 
 dnl  Copyright © 2003 Keith Packard, Noah Levitt
 dnl 
 dnl  Permission to use, copy, modify, distribute, and sell this software and its

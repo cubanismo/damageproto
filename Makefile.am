@@ -1,6 +1,4 @@
 # 
-#  $Id: Makefile.am,v 1.1 2003-10-24 06:16:46 keithp Exp $
-# 
 #  Copyright © 2003 Keith Packard, Noah Levitt
 # 
 #  Permission to use, copy, modify, distribute, and sell this software and its
