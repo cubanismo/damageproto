@@ -32,10 +32,6 @@ damagedoc_DATA = damageproto.txt
 
 EXTRA_DIST = autogen.sh damageproto.pc.in $(damagedoc_DATA)
 
-
-EXTRA_DIST += ChangeLog
-MAINTAINERCLEANFILES = ChangeLog
-
 .PHONY: ChangeLog INSTALL
 
 INSTALL:
