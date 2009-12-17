@@ -27,10 +27,9 @@ damage_HEADERS = \
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = damageproto.pc
 
-damagedocdir = $(datadir)/doc/$(PACKAGE)
-damagedoc_DATA = damageproto.txt
+dist_doc_DATA = damageproto.txt
 
-EXTRA_DIST = autogen.sh damageproto.pc.in $(damagedoc_DATA)
+EXTRA_DIST = autogen.sh damageproto.pc.in
 
 MAINTAINERCLEANFILES = ChangeLog INSTALL
 
