@@ -29,7 +29,6 @@ pkgconfig_DATA = damageproto.pc
 
 dist_doc_DATA = damageproto.txt
 
-EXTRA_DIST = autogen.sh damageproto.pc.in
 
 MAINTAINERCLEANFILES = ChangeLog INSTALL
 
