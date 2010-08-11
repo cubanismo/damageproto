@@ -25,7 +25,7 @@
 
 #define	DAMAGE_NAME	"DAMAGE"
 #define DAMAGE_MAJOR	1
-#define DAMAGE_MINOR	1
+#define DAMAGE_MINOR	3
 
 /************* Version 1 ****************/
 
@@ -41,8 +41,9 @@
 #define X_DamageDestroy			2
 #define X_DamageSubtract		3
 #define X_DamageAdd			4
+#define X_DamageSubtractAndTrigger	5
 
-#define XDamageNumberRequests		(X_DamageAdd + 1)
+#define XDamageNumberRequests		(X_DamageSubtractAndTrigger + 1)
 
 /* Events */
 #define XDamageNotify			0

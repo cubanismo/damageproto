@@ -1,7 +1,7 @@
 			The DAMAGE Extension
-			Protocol Version 1.1
+			Protocol Version 1.3
 			 Document Revision 1
-			     2007-01-08
+			     2010-08-11
 			     
 			    Keith Packard
 			  keithp@keithp.com
@@ -10,6 +10,11 @@
 			   eric@anholt.net
 		     Open Source Technology Center
 			  Intel Corporation
+
+			     James Jones
+			 jajones@nvidia.com
+			 NVIDIA Corporation
+
 1. Introduction
 
 Monitoring the regions affected by rendering has wide-spread use, from
@@ -84,6 +89,29 @@ less-incorrect rendering in this cases, the direct rendering client should
 translate its damage region to screen coordinates and report the damage against
 the root window rather than the drawable.
 
+3.2 Additions in the 1.2 version of the protocol
+
+Version 1.2 was skipped for release management reasons.
+
+3.3 Additions in the 1.3 version of the protocol
+
+Damage is computed by the X Server during the process of generating and
+submitting rendering commands to the underlying graphics hardware or
+software renderer.  In many cases, the actual underlying rendering will not
+be completed until some indeterminate time after the damage events are
+generated and received by the client.  When the damage client is using out-
+of-band methods to access the surfaces on which damage is reported, a method
+for delaying surface accesses until after the rendering causing the damage
+has landed is needed.  To facilitate this, the 1.3 version of the protocol
+added a request to trigger an X Synchronization Fence Object when all
+rendering associated with a given damage region has been completed.  Direct
+rendering clients using APIs that can import X Synchronization Fence Objects
+can then use API-specific methods to wait for the rendering to complete
+before accessing the damaged surfaces.  Specifically, this functionality is
+meant to allow GLX-based direct rendering composite managers to queue
+desktop updates behind a hardware barrier to avoid race conditions while
+adding a minimal amount of latency.
+
 4. Data types
 
 The "Damage" object holds any accumulated damage region and reflects the
@@ -96,6 +124,9 @@ Damage
 	A value for a DAMAGE argument does not name a defined DAMAGE.
 
 6. Types
+
+	Version 1.3 relies on the XSyncFence type defined in the X
+	Synchronization Protocol Specification version 3.1.
 
 	DAMAGE		32-bit value (top three bits guaranteed to be zero)
 	
@@ -220,3 +251,29 @@ DamageAdd
 	Damage posted in this way will appear in DamageNotify events as normal,
 	and also in server internal damage tracking (for shadow framebuffer
 	updates, pixmap damage, and other uses).
+
+DamageSubtractAndTrigger
+
+		damage:				DAMAGE
+		repair:				Region or None
+		parts:				Region or None
+		finishedFence:			XSyncFence or None
+
+	damage, repair, and parts behave exactly as described above for
+	DamageSubtract.
+
+	If finishedFence is not None, it is modified in the following manner:
+
+	    If repair is None:
+
+		1)	tmp = damage
+		
+	    Otherwise:
+	
+		1)	tmp = damage INTERSECT repair
+
+	    If tmp is the empty region, finishedFence will immediately be
+	    placed in the triggered state.  Otherwise, finishedFence will be
+	    placed in the triggered state after all rendering that caused the
+	    damage in tmp has been completed.  When finishedFence reaches the
+	    triggered state, any clients waiting on it will be unblocked.

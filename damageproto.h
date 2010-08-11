@@ -25,6 +25,7 @@
 #define _DAMAGEPROTO_H_
 
 #include <X11/Xmd.h>
+#include <X11/extensions/syncproto.h>
 #include <X11/extensions/xfixesproto.h>
 #include <X11/extensions/damagewire.h>
 
@@ -43,6 +44,7 @@
 #define Picture CARD32
 #define Region CARD32
 #define Damage CARD32
+#define XSyncFence CARD32
 
 /************** Version 0 ******************/
 
@@ -124,6 +126,18 @@ typedef struct {
 
 #define sz_xDamageAddReq		12
 
+typedef struct {
+    CARD8	reqType;
+    CARD8	damageReqType;
+    CARD16	length B16;
+    Damage	damage B32;
+    Region	repair B32;
+    Region	parts B32;
+    XSyncFence	finishedFence B32;
+} xDamageSubtractAndTriggerReq;
+
+#define sz_xDamageSubtractAndTriggerReq	20
+
 /* Events */
 
 #define DamageNotifyMore    0x80
@@ -139,6 +153,7 @@ typedef struct {
     xRectangle	geometry;
 } xDamageNotifyEvent;
 
+#undef XSyncFence
 #undef Damage
 #undef Region
 #undef Picture
